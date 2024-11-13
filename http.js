@@ -274,6 +274,11 @@ HTTP = {
         if(!pathName) pathName = defaultUrl;
         pathName = pathName ? (CONFIG.homedir?(CONFIG.homedir+'/'+pathName):pathName) : defaultUrl;
         self.route.bind(self)(pathName, request, response);
+    if (path.normalize(decodeURI(request.url)) !== decodeURI(request.url)) {
+        response.statusCode = 403;
+        response.end();
+        return;
+    }
     });
   }
 };
